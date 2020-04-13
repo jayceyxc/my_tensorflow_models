@@ -1,6 +1,7 @@
 workspace(name = "lstm_object_detection")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 http_archive(
     name = "bazel_skylib",
@@ -19,6 +20,12 @@ http_archive(
     ],
     sha256 = "d437920d1434c766d22e85773b899c77c672b8b4865d5dc2cd61a29fdff3cf03",
     strip_prefix = "abseil-cpp-a02f62f456f2c4a7ecf2be3104fe0c6e16fbad9a",
+)
+
+http_archive(
+    name = "rules_cc",
+    strip_prefix = "rules_cc-master",
+    urls = ["https://github.com/bazelbuild/rules_cc/archive/master.zip"],
 )
 
 # GoogleTest/GoogleMock framework. Used by most unit-tests.
@@ -118,3 +125,9 @@ http_archive(
 
 load("@org_tensorflow//tensorflow:workspace.bzl", "tf_workspace")
 tf_workspace(tf_repo_name = "org_tensorflow")
+
+git_repository(
+    name = "libedgetpu",
+    remote = "sso://coral.googlesource.com/edgetpu-native",
+    commit = "83e47d1bcf22686fae5150ebb99281f6134ef062",
+)
